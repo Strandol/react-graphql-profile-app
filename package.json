@@ -1,0 +1,26 @@
+{
+  "name": "react-graphql-profile-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Strandol/react-graphql-profile-app.git"
+  },
+  "author": "dvalian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Strandol/react-graphql-profile-app/issues"
+  },
+  "homepage": "https://github.com/Strandol/react-graphql-profile-app#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "lodash": "^4.17.10",
+    "mongoose": "^5.0.16",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0"
+  }
+}
