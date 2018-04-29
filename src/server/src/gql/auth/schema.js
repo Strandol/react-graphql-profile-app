@@ -7,9 +7,9 @@ export default `
   }
   type Query {
     getUser(id: ID!): Answer,
-    loginUser(email: String, password: String): Answer
   }
   type Mutation {
     registerUser(email: String, password: String): Answer
+    loginUser(email: String, password: String): Answer
   }
 `;

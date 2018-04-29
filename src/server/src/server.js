@@ -1,6 +1,7 @@
 import express from 'express';
 import logger from 'morgan';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import passport from 'passport';
 import { DB, PORT, SECRET_KEY } from '../config';
@@ -17,11 +18,10 @@ const jwtOpts = {
 mongoose.connect(`mongodb://localhost:27017/${DB}`)
 
 app.use(logger('dev'));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
-
-app.use("/graphql", graphqlRoute);
 
 passport.serializeUser((user, done) => {
   done(null, user._id);
@@ -40,6 +40,14 @@ passport.use(new JwtStrategy(jwtOpts, async (decoded, done) => {
     done(err, false);
   }
 }))
+
+app.use("/graphql", graphqlRoute);
+app.post("/login", passport.authenticate('jwt', { session: false }), (req, res) => {
+  res.status(200).send({
+    status: true,
+    data: req.user
+  })
+})
 
 app.listen(PORT, () => {
   console.log(`Server listening on: ${PORT}`);
