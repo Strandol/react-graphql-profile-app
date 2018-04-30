@@ -4,8 +4,10 @@ import { createHttpLink } from "apollo-link-http";
 import { Provider } from "react-redux";
 import { ApolloProvider } from "react-apollo";
 import { GRAPHQL_API } from "../../config";
-import store  from '../../redux'
-import Login from "../../pages/Login";
+import reduxStore from "../../redux/store";
+import Routes from "../../router";
+
+const { store } = reduxStore;
 
 const client = new ApolloClient({
   uri: GRAPHQL_API,
@@ -18,7 +20,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <ApolloProvider client={client}>
-          <Login />
+          <Routes />
         </ApolloProvider>
       </Provider>
     );

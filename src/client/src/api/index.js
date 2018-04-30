@@ -1,9 +1,7 @@
 import axios from "axios";
 import { getToken } from "../utils";
-import { API_URL } from "../config";
 
 function apiRequest(req) {
-  const url = API_URL + req.url;
   const token = getToken();
 
   if (!req.headers) req.headers = {};
@@ -16,7 +14,7 @@ function apiRequest(req) {
 
   const axiosData = {
     method: req.method,
-    url: url,
+    url: req.url,
     headers: req.headers,
     params: req.params,
     data: req.data
@@ -27,9 +25,6 @@ function apiRequest(req) {
       const serverData = response.data.data;
       return serverData;
     })
-    .catch(error => {
-      throw error;
-    });
 
   return axiosRequest;
 }

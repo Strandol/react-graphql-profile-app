@@ -4,9 +4,10 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import passport from 'passport';
-import { DB, PORT, SECRET_KEY } from '../config';
-import graphqlRoute from './gql';
 import { ExtractJwt, Strategy as JwtStrategy } from "passport-jwt";
+import { DB, PORT, SECRET_KEY } from '../config';
+import apiRoutes from './api';
+import graphqlRoute from './gql';
 import User from './models/user';
 
 const app = express();
@@ -42,12 +43,7 @@ passport.use(new JwtStrategy(jwtOpts, async (decoded, done) => {
 }))
 
 app.use("/graphql", graphqlRoute);
-app.post("/login", passport.authenticate('jwt', { session: false }), (req, res) => {
-  res.status(200).send({
-    status: true,
-    data: req.user
-  })
-})
+app.use("/api", apiRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on: ${PORT}`);
